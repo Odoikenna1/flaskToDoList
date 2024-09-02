@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/styles.css">
+    <title>Title</title>
+</head>
+<body>
+<div class="heroContainer">
+    <div class="heroText">
+        <h1>To-do-list</h1>
+        <ul>
+            {% for task in to_do_lst %}
+                <li>
+                    <input type="checkbox" name="done" {% if task['done'] %} checked {% endif %} onchange="this.form.submit()">
+                    <span {% if task['done'] %} style="text-decoration: line-through" {% endif %}>{{ task.task }}</span>
+                    <a href="{{ url_for('user_bp.check', index=loop.index0)}}">check</a>
+                    <a href="{{ url_for('user_bp.edit', index=loop.index0)}}">Edit</a>
+                    <a href="{{ url_for('user_bp.delete', index=loop.index0)}}">Delete</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <form action="{{ url_for('user_bp.add') }}" method="post">
+            <input type="text" name="task" placeholder="Enter a task description here...">
+            <button type="submit">Add task</button>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>
